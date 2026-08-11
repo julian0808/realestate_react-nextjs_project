@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy: #0a2540;
+  --navy-light: #1b3a5b;
+  --brown: #6b4e3d;
+  --brown-light: #a9825e;
+  --cream: #f7f5f2;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--navy-light) transparent;
+}
+
+html {
+  background: var(--cream);
+}
+
+body {
+  color: var(--navy);
+  background: var(--cream);
+  cursor: none;
+}
+
+@media (max-width: 767px), (hover: none) {
+  body {
+    cursor: auto;
+  }
+}
+
+::selection {
+  background: var(--brown-light);
+  color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.noise-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.container-px {
+  @apply px-6 md:px-10 lg:px-16;
+}
+
+/* Scroll reveals are applied as inline styles during SSR; without JS they would
+   never resolve, leaving the page blank. */
+.no-js [style*="opacity:0"] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.text-outline {
+  -webkit-text-stroke: 1px var(--navy);
+  color: transparent;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
